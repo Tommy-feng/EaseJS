@@ -54,7 +54,7 @@ var EventUtil = {
 
   /**
    * @desc 取消事件的默认行为
-   * @param {object} element 绑定的元素
+   * @param {object} event 事件对象
    */
   preventDefault: function(event) {
     if (event.preventDefault) {
@@ -66,13 +66,53 @@ var EventUtil = {
 
   /**
    * @desc 阻止事件的进一步捕获或冒泡
-   * @param {object} element 绑定的元素
+   * @param {object} event 事件对象
    */
   stopPropagation: function(event) {
     if (event.stopPropagation) {
       event.stopPropagation();
     } else {
       event.canelBubble = true;
+    }
+  },
+
+  /**
+   * @desc 获取鼠标事件中相关元素
+   * @param {object} event 事件对象
+   */
+  getRelatedTarget: function(event) {
+    if (event.relatedTarget) {
+      return event.relatedTarget;
+    } else if (event.toElement) {
+      return event.toElement;
+    } else if (event.fromElement) {
+      return event.fromElement;
+    } else {
+      return null;
+    }
+  },
+
+  /**
+   * @desc 获取鼠标按钮的值
+   * @param {object} event 事件对象
+   */
+  getButton: function(event) {
+    if (document.implementation.hasFeature('MouseEvents', '2.0')) {
+      return event.button;
+    } else {
+      switch (event.button) {
+        case 0:
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+          return 0;
+        case 2:
+        case 6:
+          return 2;
+        case 4:
+          return 4;
+      }
     }
   }
 };
