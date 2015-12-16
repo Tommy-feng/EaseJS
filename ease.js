@@ -114,5 +114,30 @@ var EventUtil = {
           return 4;
       }
     }
+  },
+
+  /**
+   * @desc 获取鼠标滑轮的增量值
+   * @param {object} event 事件对象
+   */
+  getWheelDelta: function(event) {
+    if (event.wheelDelta) {
+      return event.wheelDelta;
+    } else {
+      return -event.detail*40;
+    }
+  },
+
+  /**
+   * @desc 获取键盘的字符编码
+   * @param {object} event 事件对象
+   */
+  getCharCode: function(event) {
+    if (typeof event.charCode == 'number') {
+      return event.charCode;
+    } else {
+      return event.keyCode;
+    }
   }
+
 };
